@@ -1,0 +1,25 @@
+﻿@page
+@model MLCandidate.Pages.Posts.CreateModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<form method="post">
+    @if (ModelState.ErrorCount > 0)
+    {
+        <div asp-validation-summary="All" class="alert alert-danger">
+        </div>
+    }
+    <div class="form-group">
+        <label asp-for="Post.Title"></label>
+        <input asp-for="Post.Title" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Post.Body"></label>
+        <textarea asp-for="Post.Body" class="form-control" rows="10"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+

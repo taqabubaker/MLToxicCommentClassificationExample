@@ -1,0 +1,28 @@
+﻿@page
+@model MLCandidate.Pages.Posts.DetailsModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<form method="post">
+    <input asp-for="Post.Id" type="hidden" />
+    <div class="form-group">
+        <h1>@Model.Post.Title</h1>
+    </div>
+    <div class="form-group">
+        <textarea asp-for="Post.Body" class="form-control" rows="10" readonly></textarea>
+    </div>
+    <h5>Comments</h5>
+    @foreach (var comment in Model.Post.Comments)
+    {
+        <div class="form-group">
+            <textarea class="form-control" rows="3" readonly>@comment.Body</textarea>
+        </div>
+    }
+    <div class="form-group">
+        <textarea asp-for="Comment.Body" placeholder="Insert your comment..." class="form-control" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
