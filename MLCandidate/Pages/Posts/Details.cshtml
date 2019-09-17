@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id:int}"
 @model MLCandidate.Pages.Posts.DetailsModel
 @{
     ViewData["Title"] = "Details";
@@ -19,9 +19,9 @@
             <textarea class="form-control" rows="3" readonly>@comment.Body</textarea>
         </div>
     }
-    <div class="form-group">
-        <textarea asp-for="Comment.Body" placeholder="Insert your comment..." class="form-control" rows="3"></textarea>
-    </div>
+<div class="form-group">
+    <textarea asp-for="Comment.Body" placeholder="Insert your comment..." class="form-control" rows="3"></textarea>
+</div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
