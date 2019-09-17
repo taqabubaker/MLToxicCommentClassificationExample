@@ -17,5 +17,16 @@ namespace MLCandidate.Data
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<CommentStatus> CommentStatuses { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<CommentStatus>().HasData(
+                new CommentStatus { Id = 1, Description = "Under Review" },
+                new CommentStatus { Id = 2, Description = "Flagged" },
+                new CommentStatus { Id = 3, Description = "Posted" }
+                );
+
+            base.OnModelCreating(builder);
+        }
     }
 }

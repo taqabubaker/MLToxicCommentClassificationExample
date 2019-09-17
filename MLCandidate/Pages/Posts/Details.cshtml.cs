@@ -45,7 +45,7 @@ namespace MLCandidate.Pages.Posts
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+                return RedirectToPage("./Details", new { id = Post.Id });
             }
 
             Comment.CommentStatusId = (await DbContext.CommentStatuses
