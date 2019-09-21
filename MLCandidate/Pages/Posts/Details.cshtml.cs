@@ -9,16 +9,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MLCandidate.Data;
 using MLCandidate.Models;
+using MLCandidate.Services;
 
 namespace MLCandidate.Pages.Posts
 {
     [Authorize]
     public class DetailsModel : BaseModel
     {
-        public DetailsModel(ApplicationDbContext dbContext, IConfiguration confinguraiton)
+        private readonly IToxicCommentService toxicCommentService;
+
+        public DetailsModel(ApplicationDbContext dbContext, IConfiguration confinguraiton, IToxicCommentService toxicCommentService)
             : base(dbContext, confinguraiton)
         {
-
+            this.toxicCommentService = toxicCommentService;
         }
 
         [BindProperty]
@@ -26,6 +29,9 @@ namespace MLCandidate.Pages.Posts
 
         [BindProperty]
         public Comment Comment { get; set; }
+
+        [TempData]
+        public bool IsToxic { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
@@ -44,6 +50,13 @@ namespace MLCandidate.Pages.Posts
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
+            {
+                return RedirectToPage("./Details", new { id = Post.Id });
+            }
+
+            IsToxic = toxicCommentService.IsToxicComment(Comment.Body);
+
+            if (IsToxic)
             {
                 return RedirectToPage("./Details", new { id = Post.Id });
             }
